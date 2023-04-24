@@ -17,7 +17,8 @@ const UserSchema=new mongoose.Schema({
     status:{
         type:Boolean,
         default:true,
-    }
+    },
+    
 },{ timestamps: true });
 
 let User=mongoose.model('User',UserSchema);

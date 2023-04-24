@@ -3,6 +3,7 @@ const path=require('path');
 const cookieParser =require('cookie-parser');
 var bodyParser = require('body-parser')
 const mongoose=require('mongoose');
+const multer = require('multer');
 
 
 const usersRouter=require('./routes/user');
@@ -38,5 +39,14 @@ mongoose.connect("mongodb://localhost:27017",()=>{
 e=>console.error(e)
 )
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname)
+  }
+})
+const upload = multer({ storage: storage });
 const PORT =4111;
 app.listen(PORT, console.log("Server don start for port: " + PORT))
